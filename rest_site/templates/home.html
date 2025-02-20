@@ -2,5 +2,12 @@
 
 {% block content %}
     <h2>Home</h2>
+    <div>
+        {% for student in students%}
+        <p>
+            <li>{{student.name}}</li>
+        </p>
+        {% endfor %}
+    </div>
 
 {% endblock %}
