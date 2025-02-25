@@ -83,6 +83,10 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
     ],
+
+    # Permission classes
+    # Provides a list of permission classes that are used before the main permission checking
+    # classes. These classes are always run when a view is accessed, regardless of the request method.
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
     ],
