@@ -77,6 +77,13 @@ TEMPLATES = [
     },
 ]
 
+REST_FRAMEWOEK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'resr_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication', 
+    ]
+}
+
 WSGI_APPLICATION = 'rest_site.wsgi.application'
 
 
