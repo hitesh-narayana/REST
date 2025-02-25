@@ -6,7 +6,13 @@ from rest_framework.response import Response
 from rest_framework import status
 from base.models import Student
 from .serializers import StudentSerializer
+from rest_framework.pagination import PageNumberPagination
 import json
+
+class Pagination(PageNumberPagination):
+    page_size = 2
+    page_size_query_param = 'page_size'
+    max_page_size = 10
 
 @api_view(['GET'])
 def get_all_students(request):
