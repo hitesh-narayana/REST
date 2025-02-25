@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>JSON Response</title>
+</head>
+<body>
+
+    <div>
+        <p></p>
+    </div>
+    
+</body>
+<script>
+    let getstudents = async () => {
+        let response  = await fetch('http://127.0.0.1:8000/api/allstudents/');
+        let data = await response.json();
+        for (let i=0; i<data.length; i++) {
+            document.querySelector('p').innerHTML += data[i].name + "<br>";
+        }
+    };
+
+    getstudents();
+
+    let addStudent  = async () => {
+        let csrftoken = getCookie('csrftoken');  // Get CSRF Token
+        let response = await fetch('http://127.0.0.1:8000/api/createstudents/', {
+            method : 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken
+            },
+            body: JSON.stringify({ name: "John Doe", city: "Bengaluru" }),
+            credentials: 'same-origin'
+        });
+
+        let data = await response.json();
+        console.log(data);
+    };
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            let cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                let cookie = cookies[i].trim();
+                if (cookie.startsWith(name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    addStudent();
+</script>
+
+</html>
