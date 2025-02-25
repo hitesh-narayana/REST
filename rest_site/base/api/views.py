@@ -1,6 +1,8 @@
 from django.http import JsonResponse
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.authentication import BasicAuthentication, SessionAuthentication
 from base.models import Student
 from base.api.serializers import StudentSerializer
 from django.shortcuts import get_object_or_404

@@ -81,7 +81,10 @@ REST_FRAMEWOEK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'resr_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication', 
-    ]
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
 }
 
 WSGI_APPLICATION = 'rest_site.wsgi.application'
