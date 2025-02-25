@@ -77,15 +77,17 @@ TEMPLATES = [
     },
 ]
 
-REST_FRAMEWOEK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'resr_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication', 
-    ],
+# Rest Framework settings
+REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
     ],
 }
+
 
 WSGI_APPLICATION = 'rest_site.wsgi.application'
 
