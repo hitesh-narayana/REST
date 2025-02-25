@@ -7,29 +7,29 @@ from base.models import Student
 from base.api.serializers import StudentSerializer
 from django.shortcuts import get_object_or_404
 
-
-
 @api_view(['GET'])
+@authentication_classes([BasicAuthentication, SessionAuthentication])
+@permission_classes([IsAuthenticated])
 def getallStudents(request):
     students = Student.objects.all()
-    serializer = StudentSerializer(students,many=True)
+    serializer = StudentSerializer(students, many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])
-def getStudent(request,pk):
-    student = get_object_or_404(id=pk)
-    serializer = StudentSerializer(student,many=False)
+@authentication_classes([BasicAuthentication, SessionAuthentication])
+@permission_classes([IsAuthenticated])
+def getStudent(request, pk):
+    student = get_object_or_404(Student, id=pk)
+    serializer = StudentSerializer(student, many=False)
     return Response(serializer.data)
 
 @api_view(['POST'])
+@authentication_classes([BasicAuthentication, SessionAuthentication])
+@permission_classes([IsAuthenticated])
 def createStudent(request):
-    data = request.data
-    name = data.get('name', None)
-    city = data.get('city', None)
-
-    if not name or not city:
-        return Response({"error": "Name and City are required"}, status=400)
-
-    student = Student.objects.create(name=name, city=city)
-    serializer = StudentSerializer(student, many=False)
-    return Response(serializer.data)
+    serializer = StudentSerializer(data=request.data)
+    
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=201)
+    return Response(serializer.errors, status=400)
